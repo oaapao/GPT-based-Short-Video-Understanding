@@ -15,12 +15,7 @@ For example:
 subscription_key = "Your-Key-Goes-Here"
 '''
 
-if 'SPEECH_SERVICE_KEY' in os.environ:
-    subscription_key = os.environ['SPEECH_SERVICE_KEY']
-else:
-    subscription_key = "fc81b16001d24349b341c82ecf90682f"
-    # print('Environment variable for your subscription key is not set.')
-    # exit()
+subscription_key = os.getenv("AZURE_KEY")
 
 class TextToSpeech(object):
     def __init__(self, subscription_key):

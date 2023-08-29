@@ -1,6 +1,8 @@
 import json
 from pprint import pprint
 import requests
+import asyncio
+from tikhub import DouyinAPI
 
 def phase_id_and_share_url(json_filename='./search_result.json'):
     with open(json_filename,'r') as f:
@@ -12,8 +14,7 @@ def phase_id_and_share_url(json_filename='./search_result.json'):
     return share_list
 
 def download_douyin(save_path,share_url=None,vid=None):
-    import asyncio
-    from tikhub import DouyinAPI
+    
 
     token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjExOTMyMjc1NTFAcXEuY29tIiwiZXhwIjoxNzI0NzcwNzUzLCJlbWFpbCI6IjExOTMyMjc1NTFAcXEuY29tIiwiZXZpbDEiOiIkMmIkMTIkM0RHVHcuQTJBTzF1SzdaV0QvUE5MLkNsV3RlOGpCRS93SHNUUGdZdkgvcnFibWNrNXp0bGkifQ.l6bp4K53aclCWXM_fBnKHSAmPeGhILqo12AOcyBCByo"
     douyin_api = DouyinAPI(token)

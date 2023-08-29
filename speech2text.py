@@ -1,13 +1,16 @@
 import logging
+import os
 import azure.cognitiveservices.speech as speechsdk
 import time
 import datetime
 
+speech_key = os.getenv("AZURE_KEY")
 def speech_to_text(audio_filename="sample-20230828-1854.wav"):
+    global speech_key
     
     # Creates an instance of a speech config with specified subscription key and service region.
     # Replace with your own subscription key and region identifier from here: https://aka.ms/speech/sdkregion
-    speech_key, service_region = "fc81b16001d24349b341c82ecf90682f", "eastasia"
+    service_region = "eastasia"
     speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
 
     # Creates an audio configuration that points to an audio file.
