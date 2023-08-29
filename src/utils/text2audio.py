@@ -1,26 +1,13 @@
-'''
-After you've set your subscription key, run this application from your working
-directory with this command: python TTSSample.py
-'''
 import os, requests, time
 from xml.etree import ElementTree
 
-'''
-If you prefer, you can hardcode your subscription key as a string and remove
-the provided conditional statement. However, we do recommend using environment
-variables to secure your subscription keys. The environment variable is
-set to SPEECH_SERVICE_KEY in our sample.
-
-For example:
-subscription_key = "Your-Key-Goes-Here"
-'''
 
 subscription_key = os.getenv("AZURE_KEY")
 
 class TextToSpeech(object):
     def __init__(self, subscription_key):
         self.subscription_key = subscription_key
-        self.tts = "《鹊刀门传奇》作为今年值得期待的情景喜剧，在腾讯视频一经开播，便凭借密集的笑点、充满颗粒的江湖质感和打斗场面、鲜明生动的人物群像以及戏剧化的剧情，圈住了一大批观众老铁的心。赵本山在剧中不仅一人分饰两角，还担纲该剧的监制，还有宋小宝、宋晓峰、文松、杨树林、程野、唐鉴军等国民度喜剧人齐聚搅动武林，《鹊刀门传奇》成为了暑期剧市的一抹重彩。"
+        self.tts = input("Anything")
         self.timestr = time.strftime("%Y%m%d-%H%M")
         self.access_token = None
 

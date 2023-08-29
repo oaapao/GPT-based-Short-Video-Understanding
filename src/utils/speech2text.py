@@ -2,10 +2,17 @@ import logging
 import os
 import azure.cognitiveservices.speech as speechsdk
 import time
-import datetime
 
 speech_key = os.getenv("AZURE_KEY")
+
 def speech_to_text(audio_filename="sample-20230828-1854.wav"):
+    """调用Azure语音转文本服务，将给定音频文件转化成对应文本输出
+    Args:
+        audio_filename (str, optional): 音频文件路径，仅支持.wav文件. Defaults to "sample-20230828-1854.wav".
+
+    Returns:
+        string: 音频对应的文本
+    """
     global speech_key
     
     # Creates an instance of a speech config with specified subscription key and service region.
