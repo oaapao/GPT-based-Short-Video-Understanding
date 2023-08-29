@@ -76,7 +76,14 @@ Use this space to show useful examples of how a project can be used. Additional 
 ```python
 python chat_with_function_call.py
 ```
-
+<!-- ROADMAP -->
+## Roadmap
+- [x] Convert video to speech 
+- [x] Convert speech to text 
+- [x] ChatGPT function call works
+- [ ] Add `download_douyin` in `available_functions` and `functions`
+- [ ] Automate search video by keyword in Douyin (web crawler related)
+- [ ] Upgrade prompt
 
 <!-- CONTRIBUTING -->
 ## Contributing
