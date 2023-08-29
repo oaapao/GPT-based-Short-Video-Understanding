@@ -1,7 +1,7 @@
 # -- coding:utf-8 --
 import logging
 import os
-from functions import functions, available_functions
+from src.functions import functions, available_functions
 import openai
 import json
 from tenacity import (
@@ -71,7 +71,7 @@ def chat_with_functions(content):
 
 if __name__ == "__main__":
     prompt = """
-    请你将视频文件sample.mp4转化为文本，然后分析情感，从“好评”、“一般”，“差评”中选择最合适的情感评价，并给出原因。
+    请你将视频文件data/examples/dy_sample.mp4转化为文本，然后分析情感，从“好评”、“一般”，“差评”中选择最合适的情感评价，并给出原因。
     请注意：1. 由于我们提供的音频转文字的外部接口准确性有限，因此可能会导致个别词语或句子转化错误，你可以根据其发音在全文语境下进行联想和整体分析； 2. 在回答的最后另起一行给出两个字的回答，例如“好评”。
     """
     res = chat_with_functions(prompt)

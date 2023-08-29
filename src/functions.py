@@ -1,19 +1,6 @@
 # -- coding:utf-8 --
-from pprint import pprint
-import requests
-from speech2text import speech_to_text
-from video2speech import video_to_speech
-
-header = {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
-    "Dnt": "1",
-    "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.203",
-    "X-Amzn-Trace-Id": "Root=1-64e46c6e-04a7c5d33c1530af0214cffc",
-}
-
+from src.utils.speech2text import speech_to_text
+from src.utils.video2speech import video_to_speech
 
 functions = [
     {
@@ -53,5 +40,4 @@ functions = [
 available_functions = {
     "video_to_speech": video_to_speech,
     "speech_to_text":speech_to_text
-
 }
