@@ -15,7 +15,7 @@ from tenacity import (
 )
 
 from src.utils.save_text import save_text_to_txt
-from summarize import summary_to_csv
+from src.utils.summarize import summary_to_csv
 
 logging.basicConfig(level=logging.INFO)
 
