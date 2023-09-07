@@ -1,6 +1,7 @@
 # -- coding:utf-8 --
 from src.utils.speech2text import speech_to_text
 from src.utils.video2speech import video_to_speech
+from src.utils.save_text import save_text_to_txt
 
 functions = [
     {
@@ -35,9 +36,28 @@ functions = [
             "required": ["audio_filename"],
         },
     },
+    {
+        "name": "save_text_to_txt",
+        "description": "将文本保存成本地文本文件，如果成功返回ok",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string",
+                    "description": "文本内容",
+                },
+                "filepath": {
+                    "type": "string",
+                    "description": "文本文件的保存路径",
+                },
+            },
+            "required": ["content","filepath"],
+        },
+    },
 ]
 
 available_functions = {
     "video_to_speech": video_to_speech,
-    "speech_to_text":speech_to_text
+    "speech_to_text":speech_to_text,
+    "save_text_to_txt":save_text_to_txt
 }

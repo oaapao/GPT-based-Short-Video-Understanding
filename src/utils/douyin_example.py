@@ -6,6 +6,10 @@ import asyncio
 from tikhub import DouyinAPI
 from tqdm import tqdm
 
+# token每天有次数限制
+token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjUzMDI4ODk2N0BxcS5jb20iLCJleHAiOjE3MjU0MTE5MTAsImVtYWlsIjoiNTMwMjg4OTY3QHFxLmNvbSIsImV2aWwxIjoiJDJiJDEyJGRTT1RWUkkxRVBjb3VaalY4SHd0cWVmNlguWlhxZUlBVlpmWEVWVUJ6b0wwV1Exano1MTNHIn0.dloXptkfisvwgvcpVH0efAq5qoZnyNl7JswUtK0WFEo"
+douyin_api = DouyinAPI(token)
+
 def phase_id_and_share_url(json_filename='./search_result.json'):
     """根据抖音搜索接口的响应的json，解析搜索结果中视频数据的ID和分享链接
 
@@ -38,10 +42,6 @@ def download_douyin(save_path,share_url=None,vid=None):
     """
     
     try:
-        # token每天有次数限制
-        token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjUzMDI4ODk2N0BxcS5jb20iLCJleHAiOjE3MjU0MTE5MTAsImVtYWlsIjoiNTMwMjg4OTY3QHFxLmNvbSIsImV2aWwxIjoiJDJiJDEyJGRTT1RWUkkxRVBjb3VaalY4SHd0cWVmNlguWlhxZUlBVlpmWEVWVUJ6b0wwV1Exano1MTNHIn0.dloXptkfisvwgvcpVH0efAq5qoZnyNl7JswUtK0WFEo"
-        douyin_api = DouyinAPI(token)
-
         r = None
         r = asyncio.run(douyin_api.get_douyin_user_profile_videos_data())
         r = asyncio.run(douyin_api.get_douyin_video_data(video_id=vid))
@@ -54,25 +54,24 @@ def download_douyin(save_path,share_url=None,vid=None):
         return 'ok'
     except Exception as e:
         return f'Download failed with error message: {e.__str__}'
-
-def download_douyin_user_all_video(sec_uid='MS4wLjABAAAAfhMijO07AJw1FmUoCjeSME4RE8xs3LakblwVY0gOPKc'):
     
-    # token每天有次数限制
-    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjUzMDI4ODk2N0BxcS5jb20iLCJleHAiOjE3MjU0MTE5MTAsImVtYWlsIjoiNTMwMjg4OTY3QHFxLmNvbSIsImV2aWwxIjoiJDJiJDEyJGRTT1RWUkkxRVBjb3VaalY4SHd0cWVmNlguWlhxZUlBVlpmWEVWVUJ6b0wwV1Exano1MTNHIn0.dloXptkfisvwgvcpVH0efAq5qoZnyNl7JswUtK0WFEo"
-    douyin_api = DouyinAPI(token)
 
+def download_douyin_user_all_video(sec_uid='MS4wLjABAAAANDIHLwHtMrXJ5vukUYqhujOLhdBBkJg5qg__R9pb_Q4'):
+    # 调用第三方服务爬取抖音视频
     r = None
-    r = asyncio.run(douyin_api.get_douyin_user_profile_videos_data(sec_user_id=sec_uid))
+    # r = asyncio.run(douyin_api.get_douyin_user_profile_videos_data(sec_user_id=sec_uid,count=50))
+    r = asyncio.run(douyin_api.get_douyin_user_profile_videos_data(sec_user_id=sec_uid,count=50))
+    
     urls = []
+    titles = []
     for info in r['aweme_list']:
         urls.append(info['video']['play_addr']['url_list'][0])
-    idx = 0
-    for url in tqdm(urls):
-        idx += 1
-        r = requests.get(url)
-        if not os.path.exists(f'data/{sec_uid[0:10]}'):
-            os.mkdir(f'data/{sec_uid[0:10]}')
-        with open((f'data/{sec_uid[0:10]}/{sec_uid[0:10]}-{idx}.mp4'),'wb') as f:
+        titles.append(info['preview_title'])
+    for i in tqdm(range(len(urls))):
+        r = requests.get(urls[i])
+        if not os.path.exists(f'data/{sec_uid}'):
+            os.mkdir(f'data/{sec_uid}')
+        with open((f'data/{sec_uid}/{titles[i]}.mp4'),'wb') as f:
             f.write(r.content)
             f.close()
 
@@ -81,4 +80,5 @@ def download_douyin_user_all_video(sec_uid='MS4wLjABAAAAfhMijO07AJw1FmUoCjeSME4R
 if __name__ == '__main__':
     # pprint(phase_id_and_share_url())
     # res = download_douyin(save_path='sample1.mp4',vid='7271122752621301026')
+    # download_douyin_user_all_video()
     download_douyin_user_all_video()
